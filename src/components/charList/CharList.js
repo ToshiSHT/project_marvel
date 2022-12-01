@@ -7,7 +7,7 @@ import './charList.scss';
 
 
 class CharList extends Component {
-
+    refItem = null;
     state = {
         charList : [],
         loading: true,
@@ -44,7 +44,7 @@ class CharList extends Component {
             charList: [...charList,...newCharList],
             loading: false,
             newItemLoading : false,
-            offset: offset+9,
+            offset: offset + 9,
             charEnded: ended}))
     }
 
@@ -65,9 +65,17 @@ class CharList extends Component {
     onCharListLoading =() => {
         this.setState({newItemLoading : true})
     }
+    refItems = [];
+    setRefItems = (item) => {
+        this.refItems.push(item);
+    }
+    onToggleClassActive = (i) => {
+        this.refItems.forEach(item => item.classList.remove('char__item_selected'));
+        this.refItems[i].classList.add('char__item_selected');
+    }
 
     renderItems(arr) {
-        const items =  arr.map((item) => {
+        const items =  arr.map((item,i) => {
             let imgStyle = {'objectFit' : 'cover'};
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = {'objectFit' : 'unset'};
@@ -76,8 +84,17 @@ class CharList extends Component {
             return (
                 <li 
                     className="char__item"
+                    tabIndex="0"
+                    ref={this.setRefItems}
                     key={item.id}
-                    onClick={() => this.props.onCharSelected(item.id)}>
+                    onKeyPress = {(e) => {
+                        if (e.key === ' ' || e.key === 'Enter'){
+                            this.props.onCharSelected(item.id);
+                            this.onToggleClassActive(i);
+
+                        }
+                    }}
+                    onClick={() =>{ this.props.onCharSelected(item.id); this.onToggleClassActive(i)}}>
                         <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
                         <div className="char__name">{item.name}</div>
                 </li>
