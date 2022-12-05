@@ -4,6 +4,7 @@ import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
+import ComicsList from "../comicsList/ComicsList";
 
 import decoration from '../../resources/img/vision.png';
 
@@ -19,14 +20,15 @@ import decoration from '../../resources/img/vision.png';
         <div className="app">
             <AppHeader/>
             <main>
-                <RandomChar/>
+                <ComicsList/>
+              {/*   <RandomChar/>
                 <div className="char__content">
                     <CharList onCharSelected = {onCharSelected}/>
                     <ErrorBoundary>
                     <CharInfo charId={selectedChar}/>
                     </ErrorBoundary>
                 </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
+                <img className="bg-decoration" src={decoration} alt="vision"/> */}
             </main>
         </div>
     )
