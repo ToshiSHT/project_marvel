@@ -7,11 +7,15 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "formik": "^2.2.9",
     "gh-pages": "^4.0.0",
+    "install": "^0.13.0",
+    "npm": "^9.2.0",
     "prop-types": "^15.8.1",
     "react-router-dom": "^6.4.4",
     "react-scripts": "^5.0.1",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "predeploy": "npm run build",
