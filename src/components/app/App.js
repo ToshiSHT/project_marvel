@@ -1,4 +1,5 @@
 import { lazy , Suspense} from "react";
+import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AppHeader from "../appHeader/AppHeader";
 import Spinner from "../spinner/spinner";
@@ -6,13 +7,20 @@ const  Page404 = lazy(() => import('../pages/404'));
 const  MainPage = lazy(() => import('../pages/MainPage'));
 const  ComicsPage = lazy(() => import('../pages/ComicsPage'));
 const  SingleComicPage = lazy(() => import('../pages/SingleComicPage'));
-const  SingleCharacterLayout = lazy(() => import('../pages/SingleCharacterLayout'));
+const  SingleCharacterPage = lazy(() => import('../pages/SingleCharacterPage'));
 
  const App = () => {
     
 
     return (
      <Router>
+            <Helmet>
+                <meta
+                  name="description"
+                  content="Marvel information portal"
+                />
+                <title>Marvel information portal sisi</title>
+            </Helmet>
            <div className="app">
             <AppHeader/>
             <main>
@@ -22,7 +30,7 @@ const  SingleCharacterLayout = lazy(() => import('../pages/SingleCharacterLayout
                 <Route path="/comics" element={<ComicsPage/>}/>
                 <Route path="/comics/:comicId" element={<SingleComicPage/>}/>
                 <Route path="*" element={ <Page404/>}/>
-                <Route path="/character/:characterId" element={<SingleCharacterLayout/>}/>
+                <Route path="/character/:characterId" element={<SingleCharacterPage/>}/>
               </Routes>
               </Suspense>
             </main>

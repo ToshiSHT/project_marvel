@@ -1,11 +1,12 @@
-import './singleCharacterLayout.scss';
+import './singleCharacterPage.scss';
 import { useState, useEffect} from 'react';
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/spinner';
 import { useParams} from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
-const SingleCharacterLayout = ({data}) => {
+const SingleCharacterPage = ({data}) => {
 
     const {characterId} = useParams();
     const [character, setCharacter] = useState(null);
@@ -46,6 +47,13 @@ const View = ({character})=> {
 
     return (
              <div className="single-comic">
+                 <Helmet>
+                <meta
+                  name="description"
+                  content={`${name} character marvel`}
+                />
+                <title>{name}</title>
+                 </Helmet>
                 <img src={thumbnail} alt={name} className="single-comic__char-img"/>
                 <div className="single-comic__info">
                     <h2 className="single-comic__name">{name}</h2>
@@ -56,4 +64,4 @@ const View = ({character})=> {
     )
 }
 
-export default SingleCharacterLayout;
+export default SingleCharacterPage;
