@@ -1,16 +1,15 @@
 import './singleCharacterPage.scss';
 import { useState, useEffect} from 'react';
 import useMarvelService from '../../services/MarvelService';
-import ErrorMessage from '../errorMessage/ErrorMessage';
-import Spinner from '../spinner/spinner';
 import { useParams} from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import setContent from '../../utils/setContent';
 
 const SingleCharacterPage = ({data}) => {
 
     const {characterId} = useParams();
     const [character, setCharacter] = useState(null);
-    const {loading,error,getCharacter,clearError}= useMarvelService();
+    const {getCharacter,clearError, process, setProcess}= useMarvelService();
 
     useEffect(() => {
         updateCharacter();
@@ -20,30 +19,26 @@ const SingleCharacterPage = ({data}) => {
         clearError();
         getCharacter(characterId)
             .then(onCharacterLoaded)
+            .then(() => setProcess('confirmed'))
     }
     const onCharacterLoaded = (character) => {
         setCharacter(character);
     }
     
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading? <Spinner/>: null ;
-    const content = !(loading || error || !character) ? <View character={character}/> : null;
+
 
     return (
        
             <>
-            {errorMessage}
-            {spinner}
-            {content}
+                {setContent(process,View,character)}
 
             </>
     )
 }
 
 
-const View = ({character})=> {
-    console.log(character);
-    const {descriptionLong,thumbnail,name} = character;
+const View = ({data})=> {
+    const {descriptionLong,thumbnail,name} = data;
 
     return (
              <div className="single-comic">
